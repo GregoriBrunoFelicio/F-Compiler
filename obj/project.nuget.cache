@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9ZdezYLhiog=",
+  "success": true,
+  "projectFilePath": "/home/greg/Repositories/FsharpForFunAndProfit/FLexer.fsproj",
+  "expectedPackageFiles": [
+    "/home/greg/.nuget/packages/fsharp.core/10.0.107/fsharp.core.10.0.107.nupkg.sha512"
+  ],
+  "logs": []
+}
