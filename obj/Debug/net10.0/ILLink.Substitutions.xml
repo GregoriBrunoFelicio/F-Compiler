@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <linker>
-  <assembly fullname="FLexer">
-    <resource name="FSharpSignatureData.FLexer" action="remove"></resource>
-    <resource name="FSharpSignatureCompressedData.FLexer" action="remove"></resource>
-    <resource name="FSharpSignatureDataB.FLexer" action="remove"></resource>
-    <resource name="FSharpSignatureCompressedDataB.FLexer" action="remove"></resource>
-    <resource name="FSharpOptimizationData.FLexer" action="remove"></resource>
-    <resource name="FSharpOptimizationCompressedData.FLexer" action="remove"></resource>
-    <resource name="FSharpOptimizationDataB.FLexer" action="remove"></resource>
-    <resource name="FSharpOptimizationCompressedDataB.FLexer" action="remove"></resource>
-    <resource name="FSharpOptimizationInfo.FLexer" action="remove"></resource>
-    <resource name="FSharpSignatureInfo.FLexer" action="remove"></resource>
+  <assembly fullname="FCompiler">
+    <resource name="FSharpSignatureData.FCompiler" action="remove"></resource>
+    <resource name="FSharpSignatureCompressedData.FCompiler" action="remove"></resource>
+    <resource name="FSharpSignatureDataB.FCompiler" action="remove"></resource>
+    <resource name="FSharpSignatureCompressedDataB.FCompiler" action="remove"></resource>
+    <resource name="FSharpOptimizationData.FCompiler" action="remove"></resource>
+    <resource name="FSharpOptimizationCompressedData.FCompiler" action="remove"></resource>
+    <resource name="FSharpOptimizationDataB.FCompiler" action="remove"></resource>
+    <resource name="FSharpOptimizationCompressedDataB.FCompiler" action="remove"></resource>
+    <resource name="FSharpOptimizationInfo.FCompiler" action="remove"></resource>
+    <resource name="FSharpSignatureInfo.FCompiler" action="remove"></resource>
   </assembly>
 </linker>

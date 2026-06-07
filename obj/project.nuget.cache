@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9ZdezYLhiog=",
+  "dgSpecHash": "uLdNrTjpGR4=",
   "success": true,
-  "projectFilePath": "/home/greg/Repositories/FsharpForFunAndProfit/FLexer.fsproj",
+  "projectFilePath": "/home/greg/Repositories/FCompiler/FCompiler.fsproj",
   "expectedPackageFiles": [
     "/home/greg/.nuget/packages/fsharp.core/10.0.107/fsharp.core.10.0.107.nupkg.sha512"
   ],

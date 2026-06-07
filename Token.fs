@@ -1,5 +1,4 @@
 module Token
-open System
 
 type TokenType =
     | SemiColon
@@ -8,6 +7,7 @@ type TokenType =
     | Equals
     | EndOfFile
     | Number
+    | String
 
 type Token = 
     { Type : TokenType

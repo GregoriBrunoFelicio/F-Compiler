@@ -112,11 +112,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/greg/Repositories/FsharpForFunAndProfit/FLexer.fsproj",
-      "projectName": "FLexer",
-      "projectPath": "/home/greg/Repositories/FsharpForFunAndProfit/FLexer.fsproj",
+      "projectUniqueName": "/home/greg/Repositories/FCompiler/FCompiler.fsproj",
+      "projectName": "FCompiler",
+      "projectPath": "/home/greg/Repositories/FCompiler/FCompiler.fsproj",
       "packagesPath": "/home/greg/.nuget/packages/",
-      "outputPath": "/home/greg/Repositories/FsharpForFunAndProfit/obj/",
+      "outputPath": "/home/greg/Repositories/FCompiler/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/greg/.nuget/NuGet/NuGet.Config"

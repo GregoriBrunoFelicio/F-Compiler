@@ -1,39 +1,10 @@
 ﻿open Token
-open Helpers
 open System
+open Helpers
+open Lexers
 
 
-let code = "let num = 10;"
-
-let identifierLexer text current =
-    let value, position =
-        readWhile text (fun c -> Char.IsLetterOrDigit c || c = '_') current
-    let tokenType = getIdentifierToken value
-    let token =
-         {
-            Type = tokenType
-            Value = value
-         }
-    token, position
-
-let numberLexer text current =
-    let value, position = readWhile text Char.IsDigit current
-    let token =
-         {
-            Type = Number
-            Value = value
-         }
-    token, position
-
-let symbolLexer text current =
-    let tokenType = getSymbolToken text
-    let token =
-         {
-            Type = tokenType
-            Value = string text
-         }
-    token, current
-
+let code = "let name = \"Greg Felicio\";"
 
 let tokenize text =
     let size = String.length text - 1
@@ -48,13 +19,17 @@ let tokenize text =
                 let token, nextIndex = identifierLexer text index
                 loop nextIndex (token::tokens)
 
+            else if current = '"' then
+                let token, nextIndex = stringLexer text index
+                loop nextIndex (token::tokens)
+
             else if Char.IsDigit current then
                 let token, nextIndex = numberLexer text index
                 loop nextIndex (token::tokens)
 
             else if isSymbol current then
                 let token, nextIndex = symbolLexer current index
-                loop (nextIndex+1) (token::tokens)
+                loop nextIndex (token::tokens)
             else
                 failwithf "Unexpected: %c" current
         else
