@@ -5,9 +5,14 @@ let isSymbol text =
     match text with
     | ';' -> true
     | '=' -> true
+    | '(' -> true
+    | ')' -> true
+    | '+' -> true
     | _ -> false
 
 let isEndOfLine text = text = ';'
+
+let isOnlyQuotes text = text = '"'
 
 let readWhile texts fn current =
     let array = texts |> Seq.toArray 
@@ -28,6 +33,5 @@ let readWhile texts fn current =
         |> List.toArray
         |> String
     text, current
-
 
 

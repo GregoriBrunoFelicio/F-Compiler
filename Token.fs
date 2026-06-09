@@ -8,6 +8,10 @@ type TokenType =
     | EndOfFile
     | Number
     | String
+    | Print
+    | LeftParen
+    | RightParen
+    | Plus
 
 type Token = 
     { Type : TokenType
@@ -17,13 +21,15 @@ type Token =
 let getIdentifierToken text = 
     match text with
     | "let" -> Let
+    | "print" -> Print
     | _ -> Identifier
     
-
 let getSymbolToken text = 
     match text with
     | ';' -> SemiColon
     | '=' -> Equals
+    | '(' -> LeftParen
+    | ')' -> RightParen
+    | '+' -> Plus
     | _ -> Identifier
-    
 

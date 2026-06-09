@@ -1,4 +1,3 @@
-
 module Lexers
 
 open Helpers
@@ -7,7 +6,7 @@ open System
 
 let identifierLexer text current =
     let value, position =
-        readWhile text (fun c -> Char.IsLetterOrDigit c || c = '_') current
+        readWhile text (fun c -> Char.IsLetterOrDigit c) current
     let tokenType = getIdentifierToken value
     let token =
          {
@@ -45,11 +44,42 @@ let stringLexer text current =
      token, position+1
       
 
+let tokenize text =
+    let size = String.length text - 1
+    let rec loop index tokens =
+        if index <= size then
+            let current = text[index]
 
+            if Char.IsWhiteSpace current then
+                loop (index+1) tokens
 
-     
+            else if Char.IsLetter current then
+                let token, nextIndex = identifierLexer text index
+                loop nextIndex (token::tokens)
 
+            else if isOnlyQuotes current then
+                let token, nextIndex = stringLexer text index
+                loop nextIndex (token::tokens)
 
+            else if Char.IsDigit current then
+                let token, nextIndex = numberLexer text index
+                loop nextIndex (token::tokens)
+
+            else if isSymbol current then
+                let token, nextIndex = symbolLexer current index
+                loop nextIndex (token::tokens)
+
+            else
+                failwithf "Unexpected: %c" current
+        else
+            let endOfLineToken = 
+                {
+                    Type = EndOfFile
+                    Value = ""
+                }
+            endOfLineToken::tokens |> List.rev
+
+    loop 0 []        
 
 
 
