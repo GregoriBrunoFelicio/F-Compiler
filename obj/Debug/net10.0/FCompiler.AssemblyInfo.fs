@@ -10,7 +10,7 @@ open System.Reflection
 [<assembly: System.Reflection.AssemblyCompanyAttribute("FCompiler")>]
 [<assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")>]
 [<assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")>]
-[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4291f900b252df111d25fc41293a874014aaf7af")>]
+[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ce6ad940f9c308491852c7b8f7c76db12ce9512")>]
 [<assembly: System.Reflection.AssemblyProductAttribute("FCompiler")>]
 [<assembly: System.Reflection.AssemblyTitleAttribute("FCompiler")>]
 [<assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")>]

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "uLdNrTjpGR4=",
+  "dgSpecHash": "vfrqZ8SldNM=",
   "success": true,
-  "projectFilePath": "/home/greg/Repositories/FCompiler/FCompiler.fsproj",
+  "projectFilePath": "/home/gregori/Repositories/F-Compiler/FCompiler.fsproj",
   "expectedPackageFiles": [
-    "/home/greg/.nuget/packages/fsharp.core/10.0.107/fsharp.core.10.0.107.nupkg.sha512"
+    "/home/gregori/.nuget/packages/fsharp.core/10.0.108/fsharp.core.10.0.108.nupkg.sha512",
+    "/home/gregori/.nuget/packages/microsoft.aspnetcore.app.ref/10.0.8/microsoft.aspnetcore.app.ref.10.0.8.nupkg.sha512"
   ],
   "logs": []
 }

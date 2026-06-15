@@ -1,27 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "/home/greg/Repositories/FCompiler/FCompiler.fsproj": {}
+    "/home/gregori/Repositories/F-Compiler/FCompiler.fsproj": {}
   },
   "projects": {
-    "/home/greg/Repositories/FCompiler/FCompiler.fsproj": {
+    "/home/gregori/Repositories/F-Compiler/FCompiler.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/greg/Repositories/FCompiler/FCompiler.fsproj",
+        "projectUniqueName": "/home/gregori/Repositories/F-Compiler/FCompiler.fsproj",
         "projectName": "FCompiler",
-        "projectPath": "/home/greg/Repositories/FCompiler/FCompiler.fsproj",
-        "packagesPath": "/home/greg/.nuget/packages/",
-        "outputPath": "/home/greg/Repositories/FCompiler/obj/",
+        "projectPath": "/home/gregori/Repositories/F-Compiler/FCompiler.fsproj",
+        "packagesPath": "/home/gregori/.nuget/packages/",
+        "outputPath": "/home/gregori/Repositories/F-Compiler/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/greg/.nuget/NuGet/NuGet.Config"
+          "/home/gregori/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/lib/dotnet/library-packs": {},
-          "/usr/lib/dotnet/sdk/10.0.107/FSharp/library-packs": {},
+          "/usr/share/dotnet/sdk/10.0.108/FSharp/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,7 +43,7 @@
             "FSharp.Core": {
               "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
               "target": "Package",
-              "version": "[10.0.107, )",
+              "version": "[10.0.108, )",
               "generatePathProperty": true
             }
           },
@@ -59,12 +58,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[10.0.8, 10.0.8]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.107/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

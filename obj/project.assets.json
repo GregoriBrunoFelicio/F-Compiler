@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net10.0": {
-      "FSharp.Core/10.0.107": {
+      "FSharp.Core/10.0.108": {
         "type": "package",
         "compile": {
           "lib/netstandard2.1/FSharp.Core.dll": {
@@ -59,14 +59,14 @@
     }
   },
   "libraries": {
-    "FSharp.Core/10.0.107": {
-      "sha512": "SovtCSIyOyrg8F4bppwbmdogqF6rJ8helMTSHoC73yH6tuDEMSTyu5R2TNl9xhZuYKv+Jc3QvkMGA2VgbvX4pg==",
+    "FSharp.Core/10.0.108": {
+      "sha512": "8U4xniVOADV1XBunkdw9W8W4G6aYYp0CFwY7usCXiGQF1/5Katy1Yw5Pek4+vhhtk+iQRQsHpS1EoFLzbPAakA==",
       "type": "package",
-      "path": "fsharp.core/10.0.107",
+      "path": "fsharp.core/10.0.108",
       "files": [
         ".nupkg.metadata",
         "Icon.png",
-        "fsharp.core.10.0.107.nupkg.sha512",
+        "fsharp.core.10.0.108.nupkg.sha512",
         "fsharp.core.nuspec",
         "lib/netstandard2.0/FSharp.Core.dll",
         "lib/netstandard2.0/FSharp.Core.xml",
@@ -103,30 +103,29 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "FSharp.Core >= 10.0.107"
+      "FSharp.Core >= 10.0.108"
     ]
   },
   "packageFolders": {
-    "/home/greg/.nuget/packages/": {}
+    "/home/gregori/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/greg/Repositories/FCompiler/FCompiler.fsproj",
+      "projectUniqueName": "/home/gregori/Repositories/F-Compiler/FCompiler.fsproj",
       "projectName": "FCompiler",
-      "projectPath": "/home/greg/Repositories/FCompiler/FCompiler.fsproj",
-      "packagesPath": "/home/greg/.nuget/packages/",
-      "outputPath": "/home/greg/Repositories/FCompiler/obj/",
+      "projectPath": "/home/gregori/Repositories/F-Compiler/FCompiler.fsproj",
+      "packagesPath": "/home/gregori/.nuget/packages/",
+      "outputPath": "/home/gregori/Repositories/F-Compiler/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/greg/.nuget/NuGet/NuGet.Config"
+        "/home/gregori/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "/usr/lib/dotnet/library-packs": {},
-        "/usr/lib/dotnet/sdk/10.0.107/FSharp/library-packs": {},
+        "/usr/share/dotnet/sdk/10.0.108/FSharp/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -149,7 +148,7 @@
           "FSharp.Core": {
             "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
             "target": "Package",
-            "version": "[10.0.107, )",
+            "version": "[10.0.108, )",
             "generatePathProperty": true
           }
         },
@@ -164,12 +163,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[10.0.8, 10.0.8]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/10.0.107/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.108/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
