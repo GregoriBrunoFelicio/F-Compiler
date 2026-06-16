@@ -4,30 +4,48 @@ open Token
 open Expressions
 
 
-let letParser (tokens: list<Token>, index) =
-    let expression = Let("let", Literal 10)
-    expression, index
+type ParserState = { Tokens: list<Token>; Position: int }
+
+let current state = state.Tokens[state.Position]
+
+let advance state =
+    { state with
+        Position = state.Position + 1 }
+
+let expect expectedType state =
+    if (current state).Type = expectedType then
+        advance state
+    else
+        failwithf "Expected %A but got %A" expectedType (current state).Type
+
+let letParser state =
+
+    let state = expect Let state
+
+    let name = (current state).Value
+    let state = advance state
+
+    let state = expect Equals state
+
+    // TODO: check if it is really a literal expression
+    let value = (current state).Value
+    let state = advance state
+
+    let state = expect SemiColon state
+
+    LetExpression(name, LiteralExpression value), state
 
 
 let parser (tokens: list<Token>) =
-    let rec loop expressions index =
-        let current = tokens[index]
-
-        if index > tokens.Length then
+    let rec loop expressions state =
+        if state.Position > tokens.Length || (current state).Type = EndOfFile then
             expressions
-
-        else if current.Type = TokenType.Let then
-            let exp, i = letParser (tokens, index)
-            printfn "%A" exp
-            loop (exp :: expressions) (i + 1)
-
-        // else if current.Type = TokenType.Identifier then
-        //     let ex, i = identifierParser (tokens, index)
-        //     printfn "%A" ex
-        //     loop (ex :: expressions) (i + 1)
-        //
+        else if (current state).Type = TokenType.Let then
+            let exp, nextState = letParser state
+            loop (exp :: expressions) nextState
         else
-            printfn "Unexpected token: %A" current
+            printfn "Unexpected token: %A" (current state)
             []
 
-    loop [] 0
+    let initialState = { Tokens = tokens; Position = 0 }
+    loop [] initialState

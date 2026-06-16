@@ -4,4 +4,7 @@ open Parser
 let code = "let num = 10;"
 let tokens = tokenize code
 
-let b = parser tokens
+let expressions = parser tokens
+
+for ex in expressions do
+    printf "%A\n" ex
