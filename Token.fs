@@ -13,18 +13,15 @@ type TokenType =
     | RightParen
     | Plus
 
-type Token = 
-    { Type : TokenType
-      Value : string 
-    }
+type Token = { Type: TokenType; Value: string }
 
-let getIdentifierToken text = 
+let getToken text =
     match text with
     | "let" -> Let
     | "print" -> Print
     | _ -> Identifier
-    
-let getSymbolToken text = 
+
+let getSymbolToken text =
     match text with
     | ';' -> SemiColon
     | '=' -> Equals
@@ -33,3 +30,8 @@ let getSymbolToken text =
     | '+' -> Plus
     | _ -> Identifier
 
+let isLiteralToken tokenType =
+    match tokenType with
+    | Number
+    | String -> true
+    | _ -> false
