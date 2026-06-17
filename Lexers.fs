@@ -5,7 +5,7 @@ open Token
 open System
 
 let identifierLexer text current =
-    let value, position = readWhile text (fun c -> Char.IsLetterOrDigit c) current
+    let value, position = readWhile text Char.IsLetterOrDigit current
     let tokenType = getToken value
     let token = { Type = tokenType; Value = value }
     token, position

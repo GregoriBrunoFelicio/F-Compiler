@@ -31,23 +31,24 @@ let expressionParser state =
 
     if isLiteralToken token.Type then
         advance state, parserLiteral state
+    else if token.Type = Identifier then
+        advance state, IdentifierExpression token.Value
     else
         failwithf "Unexpected: %A" token.Value
 
 let letParser state =
-
     let state = expect Let state
-
     let name = (currentToken state).Value
     let state = advance state
-
     let state = expect Equals state
-
     let state, expression = expressionParser state
-
     let state = expect SemiColon state
-
     LetExpression(name, expression), state
+
+let printParser state =
+    let state = expect Print state
+    let state, expression = expressionParser state
+    PrintExpression expression, state
 
 
 let parser (tokens: list<Token>) =
@@ -56,6 +57,9 @@ let parser (tokens: list<Token>) =
             expressions
         else if (currentToken state).Type = Let then
             let exp, nextState = letParser state
+            loop (exp :: expressions) nextState
+        else if (currentToken state).Type = Print then
+            let exp, nextState = printParser state
             loop (exp :: expressions) nextState
         else
             printfn "Unexpected token: %A" (currentToken state)
