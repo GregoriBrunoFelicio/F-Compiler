@@ -15,7 +15,7 @@ let emitLiteral (il: ILGenerator, value: obj) =
         typeof<string>
     | _ -> failwith "Unsuported literal"
 
-let bindingEmitter (name: string, il: ILGenerator, context: EmitContext) =
+let identifierEmitter (name: string, il: ILGenerator, context: EmitContext) =
     match context.Locals.TryFind name with
     | Some local ->
         il.Emit(OpCodes.Ldloc, local)
@@ -24,8 +24,8 @@ let bindingEmitter (name: string, il: ILGenerator, context: EmitContext) =
 
 let emitExpression (il: ILGenerator, expression: Expression, context: EmitContext) =
     match expression with
-    | LiteralExpression(obj: obj) -> emitLiteral (il, obj)
-    | IdentifierExpression(name: string) -> bindingEmitter (name, il, context)
+    | BindingExpression(obj: obj) -> emitLiteral (il, obj)
+    | IdentifierExpression(name: string) -> identifierEmitter (name, il, context)
     | _ -> failwith "Unsuported expression"
 
 let printEmitter (il: ILGenerator, expression: Expression, context: EmitContext) =

@@ -22,8 +22,8 @@ let parserLiteral state =
     let token = currentToken state
 
     match token.Type with
-    | Number -> LiteralExpression(System.Convert.ToInt32 token.Value) // TODO: Parse to number
-    | String -> LiteralExpression token.Value
+    | Number -> BindingExpression(System.Convert.ToInt32 token.Value) // TODO: Parse to number
+    | String -> BindingExpression token.Value
     | tokenType -> failwithf "Expected literal but got %A" tokenType
 
 let expressionParser state =
@@ -36,29 +36,27 @@ let expressionParser state =
     else
         failwithf "Unexpected: %A" token.Value
 
-let letParser state =
-    let state = expect Let state
+let bindingParser state =
     let name = (currentToken state).Value
-    let state = advance state
-    let state = expect Equals state
+    let state = expect Identifier state
+    let state = expect Binding state
     let state, expression = expressionParser state
-    let state = expect SemiColon state
     LetExpression(name, expression), state
 
 let printParser state =
-    let state = expect Print state
+    let state = expect PrintLn state
     let state, expression = expressionParser state
     PrintExpression expression, state
-
 
 let parser (tokens: list<Token>) =
     let rec loop expressions state =
         if state.Position > tokens.Length || (currentToken state).Type = EndOfFile then
             expressions |> List.rev
-        else if (currentToken state).Type = Let then
-            let exp, nextState = letParser state
+        else if (currentToken state).Type = Identifier then
+            // Future problem: it could be a function
+            let exp, nextState = bindingParser state
             loop (exp :: expressions) nextState
-        else if (currentToken state).Type = Print then
+        else if (currentToken state).Type = PrintLn then
             let exp, nextState = printParser state
             loop (exp :: expressions) nextState
         else

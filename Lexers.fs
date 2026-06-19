@@ -4,28 +4,24 @@ open Helpers
 open Token
 open System
 
-let identifierLexer text current =
-    let value, position = readWhile text Char.IsLetterOrDigit current
+let identifierLexer text index =
+    let value, position = readWhile text Char.IsLetterOrDigit index
     let tokenType = getToken value
     let token = { Type = tokenType; Value = value }
     token, position
 
-let numberLexer text current =
-    let value, position = readWhile text Char.IsDigit current
+let numberLexer text index =
+    let value, position = readWhile text Char.IsDigit index
     let token = { Type = Number; Value = value }
     token, position
 
-let symbolLexer text current =
-    let tokenType = getSymbolToken text
+let symbolLexer text index =
+    match getSymbolToken text index with
+    | Some(tokenType, value, offset) -> { Type = tokenType; Value = value }, index + offset
+    | None -> failwithf "Unknown symbol: %c" text[index]
 
-    let token =
-        { Type = tokenType
-          Value = string text }
-
-    token, current + 1
-
-let stringLexer text current =
-    let value, position = readWhile text (fun c -> c <> '"') (current + 1)
+let stringLexer text index =
+    let value, position = readWhile text (fun c -> c <> '"') (index + 1)
     let token = { Type = Token.String; Value = value }
     token, position + 1
 
@@ -53,7 +49,7 @@ let tokenize text =
                 loop nextIndex (token :: tokens)
 
             else if isSymbol current then
-                let token, nextIndex = symbolLexer current index
+                let token, nextIndex = symbolLexer text index
                 loop nextIndex (token :: tokens)
 
             else

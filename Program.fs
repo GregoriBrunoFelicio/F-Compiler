@@ -1,18 +1,20 @@
 ﻿open Lexers
 open Parser
 open CodeGen
-open System.Reflection.Emit
-open System
-open Expressions
 
 let code =
-    @"let num = ""Gregori"";
-    print num"
+    @"num -> ""dasd""
+      println num"
 
 let tokens = tokenize code
-let expressions = parser tokens
-//
-// for ex in expressions do
+
+// for ex in tokens do
 //     printf "%A\n" ex
 //
+let expressions = parser tokens
+
+for ex in expressions do
+    printf "%A\n" ex
+
+
 compileAndRun expressions |> ignore

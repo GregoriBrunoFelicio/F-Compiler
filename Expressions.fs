@@ -1,7 +1,7 @@
 module Expressions
 
 type Expression =
-    | LiteralExpression of obj
+    | BindingExpression of obj
     | IdentifierExpression of string
     // | Binary of Expression * TokenType * Expression
     | LetExpression of string * Expression
