@@ -5,6 +5,7 @@ open System.Reflection.Emit
 open System
 open Expressions
 open Emitter
+open EmitContext
 
 let createBuilders =
     let assemblyName = AssemblyName "MyProgram"
@@ -24,16 +25,24 @@ let createBuilders =
 let compileAndRun (expressions: list<Expression>) =
     let il, typeBuilder = createBuilders
 
-    // EXPRESSIONS
-    for ex in expressions do
-        match ex with
-        | LetExpression(str, ex) -> letEmitter (il, ex)
-        | PrintExpression ex -> printEmitter (il, ex)
-        | _ -> () // Maybe ret here?
+    // EXPRESSIONS START
+    let rec loop (expressions: list<Expression>, context: EmitContext) =
+        match expressions with
+        | head :: tail ->
+            let newContext =
+                match head with
+                | LetExpression(name, ex) -> letEmitter (name, il, ex, context)
+                | PrintExpression ex -> printEmitter (il, ex, context)
+                | _ -> failwith $"Unsuported expression: {head}"
 
-    // END
+            loop (tail, newContext)
 
-    // il.Emit OpCodes.Pop
+        | [] -> context
+
+    let initialContext = { Locals = Map.empty }
+    loop (expressions, initialContext) |> ignore
+    // EXPRESSIONS END
+
     il.Emit OpCodes.Ret
     let programType = typeBuilder.CreateType()
 

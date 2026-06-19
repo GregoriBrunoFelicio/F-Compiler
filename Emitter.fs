@@ -3,26 +3,44 @@ module Emitter
 open System
 open System.Reflection.Emit
 open Expressions
-
-type CompilerContext =
-    { Variables: Map<string, LocalBuilder> }
-
+open EmitContext
 
 let emitLiteral (il: ILGenerator, value: obj) =
     match value with
-    | :? int as value -> il.Emit(OpCodes.Ldc_I4, value)
-    | :? string as value -> il.Emit(OpCodes.Ldstr, value)
+    | :? int as value ->
+        il.Emit(OpCodes.Ldc_I4, value)
+        typeof<int>
+    | :? string as value ->
+        il.Emit(OpCodes.Ldstr, value)
+        typeof<string>
     | _ -> failwith "Unsuported literal"
 
-let emitToStack (il: ILGenerator, expression: Expression) =
+let bindingEmitter (name: string, il: ILGenerator, context: EmitContext) =
+    match context.Locals.TryFind name with
+    | Some local ->
+        il.Emit(OpCodes.Ldloc, local)
+        local.LocalType
+    | None -> failwith $"Variable '{name}' not found"
+
+let emitExpression (il: ILGenerator, expression: Expression, context: EmitContext) =
     match expression with
-    | LiteralExpression(_, obj) -> emitLiteral (il, obj)
+    | LiteralExpression(obj: obj) -> emitLiteral (il, obj)
+    | IdentifierExpression(name: string) -> bindingEmitter (name, il, context)
     | _ -> failwith "Unsuported expression"
 
-let printEmitter (il: ILGenerator, expression: Expression) =
-    emitToStack (il, expression)
-    let writeLine = typeof<Console>.GetMethod("WriteLine", [| typeof<int> |])
+let printEmitter (il: ILGenerator, expression: Expression, context: EmitContext) =
+    let clrType = emitExpression (il, expression, context)
+    let writeLine = typeof<Console>.GetMethod("WriteLine", [| clrType |])
     il.Emit(OpCodes.Call, writeLine)
+    context
 
+let letEmitter (name: string, il: ILGenerator, expression: Expression, context: EmitContext) =
+    let clrType = emitExpression (il, expression, context)
+    let local = il.DeclareLocal clrType
+    il.Emit(OpCodes.Stloc, local)
 
-let letEmitter (il: ILGenerator, expression: Expression) = emitToStack (il, expression)
+    let newContext =
+        { context with
+            Locals = context.Locals.Add(name, local) }
+
+    newContext
