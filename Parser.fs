@@ -22,7 +22,7 @@ let parserLiteral state =
     let token = currentToken state
 
     match token.Type with
-    | Number -> LiteralExpression token.Value // TODO: Parse to number
+    | Number -> LiteralExpression(System.Convert.ToInt32 token.Value) // TODO: Parse to number
     | String -> LiteralExpression token.Value
     | tokenType -> failwithf "Expected literal but got %A" tokenType
 
@@ -54,7 +54,7 @@ let printParser state =
 let parser (tokens: list<Token>) =
     let rec loop expressions state =
         if state.Position > tokens.Length || (currentToken state).Type = EndOfFile then
-            expressions
+            expressions |> List.rev
         else if (currentToken state).Type = Let then
             let exp, nextState = letParser state
             loop (exp :: expressions) nextState
