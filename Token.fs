@@ -7,6 +7,8 @@ type TokenType =
     | Equals
     | Number
     | String
+    | BooleanTrue
+    | BooleanFalse
     | PrintLn
     | LeftParen
     | RightParen
@@ -24,15 +26,14 @@ type TokenType =
 
 type Token = { Type: TokenType; Value: string }
 
-let getToken text =
-    match text with
-    | "->" -> Binding
-    | "println" -> PrintLn
-    | _ -> Identifier
+let keyWordsTokenMap =
+    Map [ "true", BooleanTrue; "false", BooleanFalse; "println", PrintLn ]
 
 let isLiteralToken tokenType =
     match tokenType with
     | Number
+    | BooleanTrue
+    | BooleanFalse
     | String -> true
     | _ -> false
 

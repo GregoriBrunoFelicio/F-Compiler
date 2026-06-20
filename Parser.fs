@@ -2,7 +2,7 @@ module Parser
 
 open Token
 open Expressions
-
+open Helpers
 
 type ParserState = { Tokens: list<Token>; Position: int }
 
@@ -16,7 +16,7 @@ let expect expectedType state =
     if (currentToken state).Type = expectedType then
         advance state
     else
-        failwithf "Expected %A but got %A" expectedType (currentToken state).Type
+        failwithf $"Expected %A{expectedType} but got %A{(currentToken state).Type}"
 
 let parserLiteral state =
     let token = currentToken state
@@ -24,7 +24,9 @@ let parserLiteral state =
     match token.Type with
     | Number -> BindingExpression(System.Convert.ToInt32 token.Value) // TODO: Parse to number
     | String -> BindingExpression token.Value
-    | tokenType -> failwithf "Expected literal but got %A" tokenType
+    | BooleanTrue -> BindingExpression true
+    | BooleanFalse -> BindingExpression false
+    | tokenType -> failwithf $"Expected literal but got %A{tokenType}"
 
 let expressionParser state =
     let token = currentToken state
@@ -34,10 +36,12 @@ let expressionParser state =
     else if token.Type = Identifier then
         advance state, IdentifierExpression token.Value
     else
-        failwithf "Unexpected: %A" token.Value
+        failwithf $"Unexpected: %A{token.Value}"
 
 let bindingParser state =
-    let name = (currentToken state).Value
+    let token = currentToken state
+    let name = token.Value
+    ensureValidIdentifier name
     let state = expect Identifier state
     let state = expect Binding state
     let state, expression = expressionParser state
@@ -48,20 +52,26 @@ let printParser state =
     let state, expression = expressionParser state
     PrintExpression expression, state
 
+let isBinding state =
+    match List.tryItem (state.Position + 1) state.Tokens with
+    | Some { Type = Binding } -> true
+    | _ -> false
+
 let parser (tokens: list<Token>) =
     let rec loop expressions state =
-        if state.Position > tokens.Length || (currentToken state).Type = EndOfFile then
-            expressions |> List.rev
-        else if (currentToken state).Type = Identifier then
-            // Future problem: it could be a function
-            let exp, nextState = bindingParser state
-            loop (exp :: expressions) nextState
-        else if (currentToken state).Type = PrintLn then
+        match currentToken state with
+        | { Type = EndOfFile } -> List.rev expressions
+
+        | { Type = PrintLn } ->
             let exp, nextState = printParser state
             loop (exp :: expressions) nextState
-        else
-            printfn "Unexpected token: %A" (currentToken state)
-            []
+
+        | _ when isBinding state ->
+            let exp, nextState = bindingParser state
+            loop (exp :: expressions) nextState
+
+        | token -> failwithf $"Unexpected token: %A{token}"
 
     let initialState = { Tokens = tokens; Position = 0 }
+
     loop [] initialState

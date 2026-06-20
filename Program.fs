@@ -3,8 +3,8 @@ open Parser
 open CodeGen
 
 let code =
-    @"num -> ""dasd""
-      println num"
+    @"true -> 1
+      println foo"
 
 let tokens = tokenize code
 
@@ -13,8 +13,8 @@ let tokens = tokenize code
 //
 let expressions = parser tokens
 
-for ex in expressions do
-    printf "%A\n" ex
-
+// for ex in expressions do
+//     printf "%A\n" ex
+//
 
 compileAndRun expressions |> ignore

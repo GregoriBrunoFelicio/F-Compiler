@@ -1,5 +1,6 @@
 module Helpers
 
+open Token
 open System
 
 let isSymbol text =
@@ -13,6 +14,11 @@ let isSymbol text =
     | '>' -> true
     | '<' -> true
     | _ -> false
+
+
+let ensureValidIdentifier name =
+    if keyWordsTokenMap.ContainsKey name then
+        failwithf "'%s' Is a reserved keywords." name
 
 let isEndOfLine text = text = ';'
 
