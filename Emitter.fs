@@ -13,6 +13,13 @@ let emitLiteral (il: ILGenerator, value: obj) =
     | :? string as value ->
         il.Emit(OpCodes.Ldstr, value)
         typeof<string>
+    | :? bool as value ->
+        if value then
+            il.Emit(OpCodes.Ldc_I4, 1)
+        else
+            il.Emit(OpCodes.Ldc_I4, 0)
+
+        typeof<bool>
     | _ -> failwith "Unsuported literal"
 
 let identifierEmitter (name: string, il: ILGenerator, context: EmitContext) =

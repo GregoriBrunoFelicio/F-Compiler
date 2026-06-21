@@ -3,7 +3,7 @@ open Parser
 open CodeGen
 
 let code =
-    @"true -> 1
+    @"foo -> true
       println foo"
 
 let tokens = tokenize code
@@ -13,8 +13,7 @@ let tokens = tokenize code
 //
 let expressions = parser tokens
 
-// for ex in expressions do
+// f:or ex in expressions do
 //     printf "%A\n" ex
 //
-
 compileAndRun expressions |> ignore
