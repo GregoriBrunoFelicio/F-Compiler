@@ -31,7 +31,7 @@ let identifierEmitter (name: string, il: ILGenerator, context: EmitContext) =
 
 let emitExpression (il: ILGenerator, expression: Expression, context: EmitContext) =
     match expression with
-    | BindingExpression(obj: obj) -> emitLiteral (il, obj)
+    | LiteralExpression(obj: obj) -> emitLiteral (il, obj)
     | IdentifierExpression(name: string) -> identifierEmitter (name, il, context)
     | _ -> failwith "Unsuported expression"
 

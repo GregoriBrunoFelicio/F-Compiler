@@ -31,7 +31,7 @@ let compileAndRun (expressions: list<Expression>) =
         | head :: tail ->
             let newContext =
                 match head with
-                | LetExpression(name, ex) -> letEmitter (name, il, ex, context)
+                | BindingExpression(name, ex) -> letEmitter (name, il, ex, context)
                 | PrintExpression ex -> printEmitter (il, ex, context)
                 | _ -> failwith $"Unsuported expression: {head}"
 

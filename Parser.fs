@@ -18,25 +18,37 @@ let expect expectedType state =
     else
         failwithf $"Expected %A{expectedType} but got %A{(currentToken state).Type}"
 
-let parserLiteral state =
+let literalParser state =
     let token = currentToken state
 
     match token.Type with
-    | Number -> BindingExpression(System.Convert.ToInt32 token.Value) // TODO: Parse to number
-    | String -> BindingExpression token.Value
-    | BooleanTrue -> BindingExpression true
-    | BooleanFalse -> BindingExpression false
+    | Number -> LiteralExpression(System.Convert.ToInt32 token.Value) // TODO: Parse to number
+    | String -> LiteralExpression token.Value
+    | BooleanTrue -> LiteralExpression true
+    | BooleanFalse -> LiteralExpression false
     | tokenType -> failwithf $"Expected literal but got %A{tokenType}"
 
 let expressionParser state =
     let token = currentToken state
 
     if isLiteralToken token.Type then
-        advance state, parserLiteral state
+        advance state, literalParser state
     else if token.Type = Identifier then
         advance state, IdentifierExpression token.Value
     else
         failwithf $"Unexpected: %A{token.Value}"
+
+
+let blalbla state =
+    let (state, left) = expressionParser state
+    let current = currentToken state
+    // Contains operatins e.g +
+    if current.Type = Plus then
+        let state = advance state
+        let (state, right) = expressionParser state
+        state, BinaryExpression(left, Plus, right)
+    else
+        state, left
 
 let bindingParser state =
     let token = currentToken state
@@ -44,12 +56,12 @@ let bindingParser state =
     ensureValidIdentifier name
     let state = expect Identifier state
     let state = expect Binding state
-    let state, expression = expressionParser state
-    LetExpression(name, expression), state
+    let state, expression = blalbla state
+    BindingExpression(name, expression), state
 
 let printParser state =
     let state = expect PrintLn state
-    let state, expression = expressionParser state
+    let state, expression = blalbla state
     PrintExpression expression, state
 
 let isBinding state =
